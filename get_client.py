@@ -20,12 +20,19 @@ while i < len(items):
     submitted_data = json.loads(response.text)['result'][ritm]
     print "  Requestor_email=" + submitted_data['Requestor_email']
     print "  aws_account=" + submitted_data['u_aws_account']
+    print
 
     response = requests.get('https://heredev.service-now.com/api/now/v1/table/u_nss_ssp_vpc_requests?u_ritm=%s' % ritm, auth=HTTPBasicAuth(user, pswd))
     #print response.status_code
     nss_details = json.loads(response.text)['result'][0] # Is it always a list of length 1
     print "  room_id=" + nss_details['u_room_id']
+    print 
+
+    for key, value in nss_details.iteritems() :
+        if value:
+            print "  " + key + "=" + value
+    print
 
     i += 1
 
-
+    
